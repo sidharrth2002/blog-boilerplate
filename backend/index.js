@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const { Passport, Strategy } = require('passport')
 const passport = require('passport')
 const connectDB = require('./config/db')
@@ -13,18 +14,19 @@ require('dotenv').config()
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(cors())
 
 connectDB()
 
 app.get('/', async (req, res) => {
-    let tags = ['the geek blog', 'middle school maths', 'basic math', 'higher level maths'];    
-    for (let i = 0; i < tags.length; i++) {
-        let tagName = tags[i]
-        let tag = new Tag({
-            name: tagName
-        })
-        await tag.save();
-    }
+    // let tags = ['the geek blog', 'middle school maths', 'basic math', 'higher level maths'];    
+    // for (let i = 0; i < tags.length; i++) {
+    //     let tagName = tags[i]
+    //     let tag = new Tag({
+    //         name: tagName
+    //     })
+    //     await tag.save();
+    // }
     let posts = [
         {
             title: 'How to file your income taxes',
@@ -40,10 +42,24 @@ app.get('/', async (req, res) => {
         }
     ]
     for (let i = 0; i< posts.length;i++) {
-        let post = new Post(posts[i])
+        let tempId, tempId2, tempId3;
+        await Tag.findOne({ name: 'middle school maths' }, (err, doc) => {
+            tempId = doc._id;
+        });
+        await Tag.findOne({ name: 'higher level maths' }, (err, doc) => {
+            tempId2 = doc._id
+        });
+        await Tag.findOne({ name: 'basic math' }, (err, doc) => {
+            tempId3 = doc._id
+        });
+
+        let tagsList = [tempId, tempId2, tempId3]
+        let post = new Post({...posts[i]});
+        post.tags = tagsList;
+        // console.log(post);
         await post.save()
     }
-    res.send('New Posts Saved Successfully')
+    // res.send('New Posts Saved Successfully')
 })
 
 app.get('/api/posts', (req, res) => {
@@ -56,6 +72,7 @@ app.get('/api/posts', (req, res) => {
 app.get('/api/post/:id', (req, res) => {
     let id = req.params.id;
     Post.findById(id, (err, data) => {
+        if (err) res.sendStatus(404);
         res.json(data)
     })
 })
@@ -71,6 +88,6 @@ app.post('/api/createpost', async(req, res) => {
 // })
 
 
-app.listen(3000, () => {
-    console.log("Running on Port 3000")
+app.listen(3001, () => {
+    console.log("Running on Port 3001")
 })
