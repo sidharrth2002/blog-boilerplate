@@ -27,39 +27,39 @@ app.get('/', async (req, res) => {
     //     })
     //     await tag.save();
     // }
-    let posts = [
-        {
-            title: 'How to file your income taxes',
-            body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year",
-        }, 
-        {
-            title: 'Revision Tips',
-            body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year"
-        },
-        {
-            title: 'How to make tasty lasagna',
-            body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year"
-        }
-    ]
-    for (let i = 0; i< posts.length;i++) {
-        let tempId, tempId2, tempId3;
-        await Tag.findOne({ name: 'middle school maths' }, (err, doc) => {
-            tempId = doc._id;
-        });
-        await Tag.findOne({ name: 'higher level maths' }, (err, doc) => {
-            tempId2 = doc._id
-        });
-        await Tag.findOne({ name: 'basic math' }, (err, doc) => {
-            tempId3 = doc._id
-        });
+    // let posts = [
+    //     {
+    //         title: 'How to file your income taxes',
+    //         body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year",
+    //     }, 
+    //     {
+    //         title: 'Revision Tips',
+    //         body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year"
+    //     },
+    //     {
+    //         title: 'How to make tasty lasagna',
+    //         body: "In this article, we're going to go over the federal tax code to make it easier for you to file your taxes this year"
+    //     }
+    // ]
+    // for (let i = 0; i< posts.length;i++) {
+    //     let tempId, tempId2, tempId3;
+    //     await Tag.findOne({ name: 'middle school maths' }, (err, doc) => {
+    //         tempId = doc._id;
+    //     });
+    //     await Tag.findOne({ name: 'higher level maths' }, (err, doc) => {
+    //         tempId2 = doc._id
+    //     });
+    //     await Tag.findOne({ name: 'basic math' }, (err, doc) => {
+    //         tempId3 = doc._id
+    //     });
 
-        let tagsList = [tempId, tempId2, tempId3]
-        let post = new Post({...posts[i]});
-        post.tags = tagsList;
-        // console.log(post);
-        await post.save()
-    }
-    // res.send('New Posts Saved Successfully')
+    //     let tagsList = [tempId, tempId2, tempId3]
+    //     let post = new Post({...posts[i]});
+    //     post.tags = tagsList[i];
+    //     // console.log(post);
+    //     await post.save()
+    // }
+    res.send('New Posts Saved Successfully')
 })
 
 app.get('/api/posts', (req, res) => {
@@ -82,6 +82,29 @@ app.post('/api/createpost', async(req, res) => {
     let newPost = new Post({...postData});
     await newPost.save();
     res.sendStatus(200);
+})
+
+app.get('/api/categories', async (req, res) => {
+    let ids;
+    await Tag.find((err, doc) => {
+        if(err) console.log(err)
+        res.send(doc)
+    })
+})
+
+app.get('/api/category/:id', async (req, res) => {
+    // let ids;
+    // await Tag.find((err, doc) => {
+    //     if(err) console.log(err)
+    //     ids = doc.map((tag) => tag._id)
+    // })
+    // console.log(ids.length)
+    let id = req.params.id;
+    console.log(id)
+    await Post.find({tags: { $in: [id] } }, (err, doc) => {
+        console.log(doc)
+        res.send(doc)
+    })
 })
 
 // app.get('/login', (req, res) => {

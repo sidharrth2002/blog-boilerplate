@@ -5,7 +5,6 @@ import Posts from './Posts'
 
 const Homepage = () => {
     const [posts, setPosts] = useState([]);
-  
     useEffect(() => {
       axios.get('http://localhost:3000/api/posts')
       .then(fetchedposts => {
@@ -26,7 +25,8 @@ const Homepage = () => {
     return (
       <div>
         <Heading />
-        <Posts posts={posts}/>      
+        <Posts posts={posts}/>
+        {/* <p>{categories[0].name}</p> */}
       </div>
     );
   }
