@@ -9,7 +9,11 @@ import Homepage from './components/Homepage'
 import Posts from './components/Posts'
 import PostPage from './components/PostPage'
 import Category from './components/Category'
+import Dashboard from './components/Dashboard'
+import WithAuth from './middleware/withAuth'
+import Login from './components/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import withAuth from './middleware/withAuth';
 
 function App() {
   const [tags, setTags] = useState([]);
@@ -38,6 +42,8 @@ function App() {
       <Navbar tags={tags}/>
       <Switch>
         <Route path="/" exact component={Homepage} />
+        <Route path="/dashboard" component={WithAuth(Dashboard)} />
+        <Route path="/login" component={Login} />
         <Route path="/posts" exact component={Posts} />
         <Route path="/posts/:id" exact component={PostPage} />
         <Route path="/category/:id" exact component={Category} />

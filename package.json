@@ -4,7 +4,7 @@
   "description": "Building a blogging platform with Nodejs to use for Maths For Geeks in the future. Backend built with Nodejs and MongoDB while frontend uses ejs to template. May revamp frontend with React in the future.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && node index.js\" \"cd frontend && npm start\"",
+    "start": "concurrently \"cd backend && nodemon index.js\" \"cd frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
