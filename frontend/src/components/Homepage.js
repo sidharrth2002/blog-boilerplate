@@ -6,7 +6,7 @@ import Posts from './Posts'
 const Homepage = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      axios.get('http://localhost:3000/api/posts')
+      axios.get('/api/post/posts')
       .then(fetchedposts => {
           console.log(fetchedposts.data)
           return fetchedposts.data.map(post => ({

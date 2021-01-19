@@ -19,9 +19,10 @@ function App() {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/categories')
+    axios.get('/api/post/categories')
     .then(fetchedcategories => {
       // console.log("4")
+      console.log('the categories are ')
       console.log(fetchedcategories.data)
 
       return fetchedcategories.data.map(tag => ({

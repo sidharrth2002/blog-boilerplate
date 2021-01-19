@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
-  const [categoryID, setCategoryID] = useState([])
+  const [categories, setCategories] = useState([{}])
   useEffect(() => {
+    console.log('props are')
+    console.log(props.tags)
     if (props.tags && props.tags[0]) {
-      setCategoryID((arr) => {
+      setCategories((arr) => {
+        props.tags.forEach(tag => arr.push(tag))
         arr.push(props.tags[0].id);
         arr.push(props.tags[1].id);    
         arr.push(props.tags[2].id);     
@@ -15,13 +18,31 @@ const Navbar = (props) => {
 
     return (
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Maths for Geeks</a>
+        <Link to="/"><a class="navbar-brand" href="#">Maths for Geeks</a></Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        {
+        }
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">  
+            {
+              categories ?
+              categories.map(category => {
+                return <li class="nav-item active">  
+                {
+                  category ? 
+                  <Link to={`/category/${category.id}`}><a class="nav-link" href="#">Test Category<span class="sr-only"></span></a></Link>
+                  :
+                  <Link to={`/`}><a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a></Link>
+                }
+                </li>
+              })
+              : 
+              ''
+            }
+            <Link to="/dashboard"><li>Dashboard</li></Link>
+            {/* <li class="nav-item active">  
             {
               props.tags[0] ? 
               <Link to={`/category/${props.tags[1].id}`}><a class="nav-link" href="#">Test Category<span class="sr-only"></span></a></Link>
@@ -34,7 +55,7 @@ const Navbar = (props) => {
             </li>
             <li class="nav-item">
               <Link to="/"><a class="nav-link" href="#">Middle School Maths</a></Link>
-            </li>
+            </li> */}
           </ul>
           <span class="navbar-text">
             All the Maths Help You Need

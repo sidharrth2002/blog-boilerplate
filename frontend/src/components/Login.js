@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useCookies } from "react-cookie";
 
 const Login = (props) => {
     const [email, setEmail] = useState('')
@@ -9,13 +10,18 @@ const Login = (props) => {
     const onSubmit = (e) => {
         console.log(email)
         e.preventDefault();
-        axios.post('http://localhost:3001/api/authenticate', {
-            email: email,
-            password: password
+        axios.post('/api/auth/authenticate', {
+                email: email,
+                password: password    
+        }, {
+            withCredentials: true
         }).then(response => {
             if (response.status === 200) {
+                console.log('approved');
+                // console.log(response.data.token);
                 props.history.push('/dashboard');
             } else {
+                console.log("incorrect");
                 setError("Incorrect email/password");
                 const error = new Error(response.error);
                 throw error;
@@ -38,7 +44,7 @@ const Login = (props) => {
         <React.Fragment>
         <h1 className="mb-4">Login</h1>
         <form className="container" onSubmit={onSubmit}>
-                    {error ?
+                    {error==="Incorrect email/password" ?
                         <div className="alert alert-danger" role="alert">
                             This is a danger alert—check it out!
                         </div>

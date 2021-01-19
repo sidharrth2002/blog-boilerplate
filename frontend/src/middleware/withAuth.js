@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
     constructor() {
@@ -11,7 +13,10 @@ export default function withAuth(ComponentToProtect) {
       };
     }
     componentDidMount() {
-      axios.get('/checkToken')
+      
+      axios.get('http://localhost:3001/api/auth/checkToken', {
+        withCredentials:true,
+      })
         .then(res => {
           if (res.status === 200) {
             this.setState({ loading: false });
@@ -22,9 +27,10 @@ export default function withAuth(ComponentToProtect) {
         })
         .catch(err => {
           console.error(err);
-          this.setState({ loading: true, redirect: true });
+          this.setState({ loading: false, redirect: true });
         });
     }
+
     render() {
       const { loading, redirect } = this.state;
       if (loading) {

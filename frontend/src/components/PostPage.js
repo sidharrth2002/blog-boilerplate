@@ -23,12 +23,15 @@ const PostPage = (match) => {
         .catch((err) => console.log(err))
     }, []);
 
+    function createMarkup(html) {
+        return {__html: html};
+    }
 
     return (
         <div className="container">
             <div class="jumbotron">
                 <h1 class="display-4">{post.post.title}</h1>
-                <p class="lead">{post.post.body}</p>
+                <p class="lead" dangerouslySetInnerHTML={createMarkup(post.post.body)}></p>
                 <hr class="my-4" />
                 <p>{formattedDate}</p>
             </div>
