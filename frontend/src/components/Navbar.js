@@ -41,7 +41,7 @@ const Navbar = (props) => {
               : 
               ''
             }
-            <Link to="/dashboard"><li>Dashboard</li></Link>
+            {/* <Link to="/dashboard"><li>Dashboard</li></Link> */}
             {/* <li class="nav-item active">  
             {
               props.tags[0] ? 

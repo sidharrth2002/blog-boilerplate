@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Post from './Post';
 import moment from 'moment';
+import './CKEditorStyle.css';
 
 const PostPage = (match) => {
     const [post, setPost] = useState({post: []})
     const [postid, setPostid] = useState('')
     const [formattedDate, setDate] = useState()
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/post/${match.match.params.id}`)
+        axios.get(`/api/post/${match.match.params.id}`)
         .then((postData) => {
             return {
                 id: postData.data._id,
@@ -30,8 +31,8 @@ const PostPage = (match) => {
     return (
         <div className="container">
             <div class="jumbotron">
-                <h1 class="display-4">{post.post.title}</h1>
-                <p class="lead" dangerouslySetInnerHTML={createMarkup(post.post.body)}></p>
+                <h1 class="display-4 text-center mb-5">{post.post.title}</h1>
+                <div className="ck-content postArea" dangerouslySetInnerHTML={createMarkup(post.post.body)}></div>
                 <hr class="my-4" />
                 <p>{formattedDate}</p>
             </div>

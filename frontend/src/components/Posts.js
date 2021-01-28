@@ -5,7 +5,7 @@ import { ModalTitle } from 'react-bootstrap';
 const Posts = (props) => {
     return (
         <div className="container">
-            <div className="row">
+            <div className="row text-center">
                 {props.posts.map(post => 
                     <Post key={post.id} data={post} />
                 )}

@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 const Heading = () => {
     return (
-        <div className="container jumbotron">
+        <div className="container jumbotron text-center">
             <h1>Full Stack Blogging</h1>
             <h2>Powered by Node and MongoDB</h2>
             <h3>Frontend revamped with React</h3>
