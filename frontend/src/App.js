@@ -12,6 +12,9 @@ import Category from './components/Category'
 import Dashboard from './components/Dashboard'
 import WithAuth from './middleware/withAuth'
 import Login from './components/Login'
+import ManagePost from  './components/ManagePost'
+import EditPost from  './components/EditPost'
+import Footer from './components/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import withAuth from './middleware/withAuth';
 
@@ -48,7 +51,12 @@ function App() {
         <Route path="/posts" exact component={Posts} />
         <Route path="/posts/:id" exact component={PostPage} />
         <Route path="/category/:id" exact component={Category} />
+        <Route path="/addpost" exact render={(props)=> (
+          <ManagePost existinghtml='' />
+        )} />
+        <Route path="/editpost/:id" exact component={EditPost} />
       </Switch>
+      <Footer />
     </div>
     </Router>
   );

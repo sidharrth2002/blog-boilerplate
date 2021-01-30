@@ -65,4 +65,10 @@ router.get('/checktoken', (req, res) => {
     })
 })
 
+router.post('/logout', (req, res) => {
+    res.cookie('token', '', {maxAge: -1});
+    console.log('Token deleted')
+    res.sendStatus(200)
+})
+
 module.exports = router;

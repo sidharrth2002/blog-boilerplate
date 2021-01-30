@@ -23,7 +23,7 @@ const Homepage = () => {
   }, [])
   
     return (
-      <div>
+      <div className="mb-5">
         <Heading />
         <Posts posts={posts}/>
         {/* <p>{categories[0].name}</p> */}

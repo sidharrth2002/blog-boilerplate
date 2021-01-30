@@ -42,7 +42,7 @@ const Login = (props) => {
 
     return (
         <React.Fragment>
-        <h1 className="mb-4">Login</h1>
+        <h1 className="mb-4 text-center">Login</h1>
         <form className="container" onSubmit={onSubmit}>
                     {error==="Incorrect email/password" ?
                         <div className="alert alert-danger" role="alert">

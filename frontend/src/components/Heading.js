@@ -4,9 +4,9 @@ import { Button } from 'react-bootstrap';
 const Heading = () => {
     return (
         <div className="container jumbotron text-center">
-            <h1>Full Stack Blogging</h1>
-            <h2>Powered by Node and MongoDB</h2>
-            <h3>Frontend revamped with React</h3>
+            <h1>Sidharrth's Thoughts</h1>
+            <h2>Powered by Node.js and MongoDB</h2>
+            <h3>Frontend revamped with React.js</h3>
             <Button className="mt-5">Get Started</Button>      
         </div>
     );

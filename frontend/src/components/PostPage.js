@@ -31,10 +31,14 @@ const PostPage = (match) => {
     return (
         <div className="container">
             <div class="jumbotron">
-                <h1 class="display-4 text-center mb-5">{post.post.title}</h1>
+                <h1 class="display-4 text-center mb-3">{post.post.title}</h1>
+                <div className="d-flex flex-column text-center mb-5">
+                    <h5 className="text-center">By, Sidharrth Nagappan</h5>
+                    <p>{formattedDate}</p>
+                </div>
+
                 <div className="ck-content postArea" dangerouslySetInnerHTML={createMarkup(post.post.body)}></div>
                 <hr class="my-4" />
-                <p>{formattedDate}</p>
             </div>
         </div>
     );
