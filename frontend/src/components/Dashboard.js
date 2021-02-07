@@ -47,7 +47,7 @@ const Dashboard = (props) => {
                 {/* <h5>Add a new post below.</h5> */}
             </div>
             <div className="row justify-content-center">
-                <button className="btn btn-primary mb-4" onClick={e => props.history.push('/addpost')}>Add New Post</button>
+                <button className="btn btn-primary mb-4 mr-4" onClick={e => props.history.push('/addpost')}>Add New Post</button>
                 <button className="btn btn-primary mb-4" onClick={logout}>Logout</button>
             </div>
             <Posts posts={posts} withEdit={true} />

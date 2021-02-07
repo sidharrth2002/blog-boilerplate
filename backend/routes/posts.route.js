@@ -47,19 +47,65 @@ router.post('/createpost', withAuth, async(req, res) => {
     })
 })
 
-router.get('/category/:id', async (req, res) => {
-    // let ids;
-    // await Tag.find((err, doc) => {
-    //     if(err) console.log(err)
-    //     ids = doc.map((tag) => tag._id)
-    // })
-    // console.log(ids.length)
-    let id = req.params.id;
-    console.log(id)
-    await Post.find({tags: { $in: [id] } }, (err, doc) => {
-        console.log(doc)
-        res.send(doc)
+router.post('/updatepost', withAuth, async(req, res) => {
+    let updateObj = {};
+    if(!req.body._id || !req.body.title || !req.body.body) {
+        res.sendStatus(204);
+    }
+    updateObj.title = req.body.title;
+    updateObj.body = req.body.postHTML;
+    console.log(updateObj);
+    Post.findByIdAndUpdate(req.body._id, updateObj, (err, doc) => {
+        if(err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            console.log(doc);
+            res.status(200);
+        }
+    });
+})
+
+router.get('/categories', async(req, res) => {
+    Tag.find()
+    .populate('posts')
+    .exec((err, doc) => {
+        if(err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            res.status(200).send(doc);
+        }
     })
 })
+
+router.get('/category/:id', async(req, res) => {
+    Tag.findById(req.params.id)
+    .populate('posts')
+    .exec((err, doc) => {
+        if(err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            res.status(200).send(doc);
+        }
+    })
+})
+
+// router.get('/category/:id', async (req, res) => {
+//     // let ids;
+//     // await Tag.find((err, doc) => {
+//     //     if(err) console.log(err)
+//     //     ids = doc.map((tag) => tag._id)
+//     // })
+//     // console.log(ids.length)
+//     let id = req.params.id;
+//     console.log(id)
+//     await Post.find({tags: { $in: [id] } }, (err, doc) => {
+//         console.log(doc)
+//         res.send(doc)
+//     })
+// })
+
 
 module.exports = router;

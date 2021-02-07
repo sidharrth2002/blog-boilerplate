@@ -17,10 +17,6 @@ const BlogPostSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    tags: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tags'
-    }]
 })
 
 module.exports = mongoose.model('Post', BlogPostSchema);

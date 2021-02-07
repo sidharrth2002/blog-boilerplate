@@ -20,7 +20,7 @@ const Post = (props) => {
                         {/* <p class="card-text" dangerouslySetInnerHTML={createMarkup(props.data.body)}></p> */}
                         <p class="card-text"><small class="text-muted">{moment(props.data.createdAt).format('DD MM YYYY hh:mm:ss')}</small></p>
                         <div className="d-flex justify-content-center">
-                            <Link to={`/posts/${props.data.id}`}><button className="btn btn-success text-align-center">Read More</button></Link>
+                            <Link to={`/posts/${props.data.id}`}><button className="btn btn-success text-align-center mr-4">Read More</button></Link>
                         {props.withEdit ? 
                             <Link to={`/editpost/${props.data.id}`}><button className="btn btn-primary text-align-center">Edit Post</button></Link>
                             :

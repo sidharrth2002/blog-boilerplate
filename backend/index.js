@@ -38,12 +38,6 @@ connectDB()
 
 app.use('/api', routes)
 
-
-// app.get('/', async (req, res) => {
-//     res.send('New Posts Saved Successfully')
-// })
-
-
 app.listen(3001, () => {
     console.log("Running on Port 3001")
 })

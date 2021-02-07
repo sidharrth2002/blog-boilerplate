@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Posts from './Posts'
 
-const Category = (match) => {
+const Category = (props) => {
     const [ posts, setPosts ] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/category/${match.match.params.id}`)
+        console.log(props.match.params.id);
+        axios.get(`/api/post/category/${props.match.params.id}`)
         .then(fetchedposts => {
-            console.log(fetchedposts.data)
-            return fetchedposts.data.map(post => ({
+            return fetchedposts.data.posts.map(post => ({
                 id: post._id,
                 title: post.title,
                 body: post.body,
@@ -18,17 +18,20 @@ const Category = (match) => {
             }))
         })
         .then(allposts => {
-            console.log(allposts)
-            setPosts(allposts)
+            setPosts(allposts);
         });
-    }, [])
+    }, [props.match.params.id])
 
     return (
-        <div className="container">
+        <div>
+        <div className="container jumbotron text-center">
             <h1 className="mt-4">In this category:</h1>
-            <br />
-            <br />
-            <Posts posts={posts} />
+        </div>
+        {posts.length == 0 ? 
+        <h3 className="text-center">No posts for this category as of yet</h3>
+        :
+        <Posts posts={posts} />
+        }
         </div>
     );
 };

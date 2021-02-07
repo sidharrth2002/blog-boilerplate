@@ -1,23 +1,25 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
-  const [categories, setCategories] = useState([{}])
+  const [categories, setCategories] = useState([])
   useEffect(() => {
-    console.log('props are')
-    console.log(props.tags)
-    if (props.tags && props.tags[0]) {
-      setCategories((arr) => {
-        props.tags.forEach(tag => arr.push(tag))
-        arr.push(props.tags[0].id);
-        arr.push(props.tags[1].id);    
-        arr.push(props.tags[2].id);     
-      })     
+    axios.get('/api/post/categories')
+    .then(categories => { 
+      let categoryNames = categories.data.map(category => {
+        return ({
+          name: category.name,
+          id: category._id
+        })
+      });
+      setCategories(categoryNames);
     }
-  }, [props.tags])
+    )
+  }, [])
 
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-light navbar-expand-lg">
         <Link to="/"><a class="navbar-brand" href="#">Maths for Geeks</a></Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -26,36 +28,7 @@ const Navbar = (props) => {
         }
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            {
-              categories ?
-              categories.map(category => {
-                return <li class="nav-item active">  
-                {
-                  category ? 
-                  <Link to={`/category/${category.id}`}><a class="nav-link" href="#">Test Category<span class="sr-only"></span></a></Link>
-                  :
-                  <Link to={`/`}><a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a></Link>
-                }
-                </li>
-              })
-              : 
-              ''
-            }
-            {/* <Link to="/dashboard"><li>Dashboard</li></Link> */}
-            {/* <li class="nav-item active">  
-            {
-              props.tags[0] ? 
-              <Link to={`/category/${props.tags[1].id}`}><a class="nav-link" href="#">Test Category<span class="sr-only"></span></a></Link>
-              :
-              <Link to={`/`}><a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a></Link>
-            }
-            </li>
-            <li class="nav-item">
-              <Link to="/"><a class="nav-link" href="#">Basic Math</a></Link>
-            </li>
-            <li class="nav-item">
-              <Link to="/"><a class="nav-link" href="#">Middle School Maths</a></Link>
-            </li> */}
+            {categories.map(category => <Link className="link" to={`/category/${category.id}`}><li key={category.index}>{category.name}</li></Link>)}
           </ul>
           <span class="navbar-text">
             All the Maths Help You Need

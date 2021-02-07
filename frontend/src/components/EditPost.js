@@ -36,7 +36,9 @@ function EditPost(props) {
         })
         .then(response => {
             if(response.status == 200) {
-                setRedirect(true);
+                props.history.push('/dashboard')
+            } else {
+                console.log('Something went wrong');
             }
         })
     }

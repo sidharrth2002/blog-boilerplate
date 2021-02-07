@@ -11,6 +11,17 @@ body {
   /* background-color: #222222 !important; */
   color: black !important;
   margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.link {
+  padding: 1rem;
+  color: black;
+}
+.link:hover {
+   text-decoration: none;
+   color: white;
+   background-color: black;
 }
 
 .jumbotron {

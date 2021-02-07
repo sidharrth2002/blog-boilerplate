@@ -21,25 +21,6 @@ import withAuth from './middleware/withAuth';
 function App() {
   const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    axios.get('/api/post/categories')
-    .then(fetchedcategories => {
-      // console.log("4")
-      console.log('the categories are ')
-      console.log(fetchedcategories.data)
-
-      return fetchedcategories.data.map(tag => ({
-        id: tag._id,
-        name: tag.name
-      }))
-
-    })
-    .then(allcategories => {
-      console.log(allcategories)
-      setTags(allcategories)  
-    })
-  }, [])
-
   return (
     <Router>
     <div className="App">
@@ -51,12 +32,10 @@ function App() {
         <Route path="/posts" exact component={Posts} />
         <Route path="/posts/:id" exact component={PostPage} />
         <Route path="/category/:id" exact component={Category} />
-        <Route path="/addpost" exact render={(props)=> (
-          <ManagePost existinghtml='' />
-        )} />
-        <Route path="/editpost/:id" exact component={EditPost} />
+        <Route path="/addpost" exact component={WithAuth(ManagePost)}/>
+        <Route path="/editpost/:id" exact component={WithAuth(EditPost)} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
     </Router>
   );
