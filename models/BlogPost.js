@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 
 const BlogPostSchema = new mongoose.Schema({
-    // id: {
-    //     type: String,
-    // },
     title: {
         type: String,
         required: true,
@@ -17,6 +14,7 @@ const BlogPostSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    comments: [{ type: mongoose.Schema.ObjectId, ref: 'Comment' }]
 })
 
 module.exports = mongoose.model('Post', BlogPostSchema);

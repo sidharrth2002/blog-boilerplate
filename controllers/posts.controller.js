@@ -52,7 +52,16 @@ module.exports = {
     },
     getCategories(req, res) {
         Tag.find()
-        .populate('posts')
+        .populate({
+            path: 'posts',
+            populate: {
+                path: 'comments',
+                model: 'Comment',
+                populate: {
+                    path: 'comments.replies',
+                }
+            }
+        })
         .exec((err, doc) => {
             if(err) {
                 console.log(err);
@@ -77,7 +86,9 @@ module.exports = {
     getCategoryNames(req, res) {
         Tag.find((err, doc) => {
             if(err) console.log(err)
-            res.send(doc)
+            else {
+                res.send(doc)
+            }
         })
     }
 }
