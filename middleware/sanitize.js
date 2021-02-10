@@ -19,17 +19,6 @@ const sanitize = async (req, res, next) => {
     } else {
         next();
     }
-    // User.find({email: req.body.email}, (err, doc) => {
-    //     if (err) {
-    //         console.log('error');
-    //         next();
-    //     } else if (!doc) {
-    //         console.log('no doc');
-    //         next();
-    //     } else {
-        
-    //     }
-    // });
 }
 
 module.exports = sanitize;
